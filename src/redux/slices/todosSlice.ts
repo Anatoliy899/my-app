@@ -37,7 +37,7 @@ export const todosSlice = createSlice({
   reducers: {
     addTodo(state, action: PayloadAction<string>) {
       state.todos.push({
-        id: Date.now(),
+        id: Number(Date.now()),
         title: action.payload,
         complete: false,
       });

@@ -1,16 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-import { ITodo } from '../types/data';
 import TodoList from './TodoList';
 import ButtonFormTodo from './UI/Buttons/ButtonFormTodo';
 import { addTodo } from '../redux/slices/todosSlice';
-import { RootState, useAppDispatch } from '../redux/store';
+import { useAppDispatch } from '../redux/store';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const [value, setValue] = React.useState('');
-  const { todos } = useSelector((state: RootState) => state.todosSlice);
 
   const hendleChange: React.ChangeEventHandler<HTMLInputElement> = (e) =>
     setValue(e.target.value);
