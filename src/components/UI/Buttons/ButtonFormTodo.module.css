@@ -1,0 +1,42 @@
+.btnWrapper {
+}
+
+.btnLink {
+  display: block;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+}
+
+.btnLink span {
+  position: relative;
+  z-index: 2;
+}
+
+.btnLink:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff003b;
+  transition: all 0.35s;
+}
+
+.btnLink:hover {
+  color: #fff;
+}
+
+.btnLink:hover:after {
+  width: 100%;
+}
