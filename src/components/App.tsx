@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { ITodo } from '../types/data';
 import TodoList from './TodoList';
 import ButtonFormTodo from './UI/Buttons/ButtonFormTodo';
-import { setTodos } from '../redux/slices/todosSlice';
+import { addTodo } from '../redux/slices/todosSlice';
 import { RootState, useAppDispatch } from '../redux/store';
 
 export const App: React.FC = () => {
@@ -16,40 +16,16 @@ export const App: React.FC = () => {
     setValue(e.target.value);
 
   const hendleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') addTodo();
+    if (e.key === 'Enter') addTodoHendler();
   };
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const addTodo = () => {
+  const addTodoHendler = () => {
     if (value) {
-      dispatch(
-        setTodos([
-          ...todos,
-          {
-            id: Date.now(),
-            title: value,
-            complete: false,
-          },
-        ])
-      );
+      dispatch(addTodo(value));
       setValue('');
     }
-  };
-
-  const removeTodo = (id: number) =>
-    dispatch(setTodos(todos.filter((todo) => todo.id !== id)));
-
-  const toggleTodo = (id: number) => {
-    dispatch(
-      setTodos(
-        todos.map((todo) => {
-          if (todo.id !== id) return todo;
-
-          return { ...todo, complete: !todo.complete };
-        })
-      )
-    );
   };
 
   React.useEffect(() => {
@@ -69,12 +45,12 @@ export const App: React.FC = () => {
 
         <div
           style={{ display: 'inline-block', marginLeft: '10px' }}
-          onClick={() => addTodo()}
+          onClick={() => addTodoHendler()}
         >
           <ButtonFormTodo text={'Add'} />
         </div>
       </div>
-      <TodoList item={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
+      <TodoList />
     </div>
   );
 };

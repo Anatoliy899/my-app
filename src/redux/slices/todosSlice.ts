@@ -35,15 +35,32 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    setTodos: (state, action) => {
-      state.todos = action.payload;
+    addTodo(state, action: PayloadAction<string>) {
+      state.todos.push({
+        id: Date.now(),
+        title: action.payload,
+        complete: false,
+      });
     },
-    decrement: (state) => {},
-    incrementByAmount: (state, action: PayloadAction<number>) => {},
+
+    removeTodo(state, action: PayloadAction<number>) {
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+    },
+
+    toggleTodo(state, action: PayloadAction<number>) {
+      const toggledTodo = state.todos.find(
+        (todo) => todo.id === action.payload
+      );
+      if (toggledTodo) {
+        toggledTodo.complete = !toggledTodo.complete;
+      }
+    },
+
+    // incrementByAmount: (state, action: PayloadAction<number>) => {},
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setTodos, decrement, incrementByAmount } = todosSlice.actions;
+export const { addTodo, removeTodo, toggleTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;

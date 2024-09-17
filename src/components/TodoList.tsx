@@ -1,24 +1,16 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 
-import { ITodo } from '../types/data';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
-interface ITodoListProps {
-  item: ITodo[];
-  removeTodo: (id: number) => void;
-  toggleTodo: (id: number) => void;
-}
-const TodoList: React.FC<ITodoListProps> = (props) => {
-  const { removeTodo, item, toggleTodo } = props;
+const TodoList: React.FC = () => {
+  const { todos } = useSelector((state: RootState) => state.todosSlice);
+
   return (
     <div>
-      {item.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          {...todo}
-          removeTodo={removeTodo}
-          toggleTodo={toggleTodo}
-        />
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} {...todo} />
       ))}
     </div>
   );
